@@ -1,28 +1,34 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
 [project]
-name = "agents"
-requires-python = ">=3.9,<=3.13.3"
+name = "productivity_intelligence"
 version = "0.1.0"
+description = "Multi-agent productivity intelligence system with Email, Notion & Calendar agents"
 dependencies = [
-    "dagster==1.11.2",
+    "dagster>=1.5.0",
+    "dagster-webserver",
+    "langchain>=0.1.0",
+    "langgraph>=0.1.0", 
+    "langchain-google-genai>=1.0.0",
+    "google-generativeai>=0.3.0",
+    "google-api-python-client",
+    "google-auth-httplib2",
+    "google-auth-oauthlib",
+    "notion-client>=2.0.0",
+    "pandas",
+    "requests"
 ]
 
-[dependency-groups]
+[project.optional-dependencies]
 dev = [
     "dagster-webserver",
-    "dagster-dg-cli",
+    "pytest",
+    "pytest-cov",
+    "ruff",
+    "mypy"
 ]
 
-[build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
-
-[tool.dg]
-directory_type = "project"
-
-[tool.dg.project]
-root_module = "agents"
-registry_modules = [
-    "agents.components.*",
-]
-
-
+[tool.dagster]
+module_name = "agents.definitions"
